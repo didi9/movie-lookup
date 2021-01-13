@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Movie Lookup</title>
+    </head>
+    <body>
+        <h1>Look up movies below!</h1>
+	
+<!-- 		<input type="search" placeholder="Search a movie title.."/>
+		<button type="submit">Search</button> -->
+
+		<form action="{% url 'search' %}" method="get">
+  			<input name="search_query" type="text" placeholder="Search...">
+            <button type="submit">Search</button>
+		</form>
+
+        <div class="card" v-for="movie in results">
+            <a v-bind:href="movie.poster_path" target="_blank">
+                <img v-bind:src="movie.poster_path"/>
+                <small>Popularity: {{ movie.popularity }}</small>
+                {{ movie.original_title }}
+            </a>
+        </div>
+        {% if results %}
+            <ul>
+                {% for movie in results %}
+                <li>
+                    <div>"{{movie.original_title}}"</div>
+                    <img src="{{movie.poster_path}}" alt="Movie poster">
+                    <div>"{{movie.popularity}}"</div>
+                </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No items available.</p>
+        {% endif %}
+
+        <!-- Vue.js -->
+        <script src="https://unpkg.com/vue"></script>
+        <script src="https://unpkg.com/vue-router"></script>
+    </body>
+</html>
